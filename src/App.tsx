@@ -5,6 +5,7 @@ import Home from './paginas/home/Home';
 import Login from './paginas/login/Login';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Cadastrousurio from './paginas/cadastroUsuario/CadastroUsuario';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
               <Route path='/' element={<Login />} />
               <Route path='/login' element={<Login />} />
               <Route path='/home' element={<Home />} />
+              <Route path='/cadastrousuario' element={<Cadastrousurio />} />
             </Routes>
           </div>
         <Footer />
