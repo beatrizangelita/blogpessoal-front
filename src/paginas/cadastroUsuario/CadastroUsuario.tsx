@@ -58,13 +58,11 @@ function CadastroUsuario(){
     }
 
     return(
-        <Grid container direction='row' justifyContent='center' alignItems='center'>
-            <Grid item xs={6} className='imgCadastro'></Grid>
-            
-            <Grid item xs={6} alignItems='center'>
-                <Box padding={10 }>
+        <Grid container direction='row' justifyContent='center' alignItems='center' className='fundo'>
+            <Grid alignItems='center' xs={12} >
+                <Box paddingX={0}>
                     
-                <form onSubmit={onSubmit}>
+                <form onSubmit={onSubmit} className='form'>
                       
                       <Typography variant='h3' gutterBottom color='textPrimary' component='h3' align='center' className='textos2'>Cadastrar Usuário</Typography>
                        
