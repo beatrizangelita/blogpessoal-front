@@ -14,6 +14,7 @@ import DeletarPostagens from "./components/postagens/deletarPostagens/DeletarPos
 import CadastroPostagens from "./components/postagens/cadastroPostagens/CadastroPostagens";
 import { Provider } from "react-redux";
 import store from "./store/store";
+import PerfilUsuario from "./components/perfilUsuario/PerfilUsuario";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             <Route path="/formularioTema/:id" element={<CadastroTema />} />
             <Route path="/deletarTema/:id" element={<DeletarTema />} />
             <Route path="/deletarPostagens/:id" element={<DeletarPostagens />} />
+            <Route path="/perfilUsuario" element={<PerfilUsuario />} />
           </Routes>
         </div>
         <Footer />
