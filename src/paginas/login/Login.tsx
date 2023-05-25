@@ -2,15 +2,21 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 import './Login.css'
 import {Grid, Box, Typography, TextField, Button} from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
-import useLocalStorage from 'react-use-localstorage'
 import { login } from '../../service/Service'
 import { UsuarioLogin } from '../../models/UsuarioLogin'
+import { useDispatch } from 'react-redux'
+import { addToken } from '../../store/tokens/action'
 
 function Login() {
 
-    let history = useNavigate();
-    const [token, setToken] = useLocalStorage('token');
+    // cria a variavel para navegação interna pela rota
+    const history = useNavigate();
 
+    // cria um estado para armazenamento no localStorage do navegador
+    const dispatch = useDispatch();
+    const [token, setToken] = useState('');
+
+    // cria um estado de controle para o usuário preencher os dados de login
     const [usuarioLogin, setUsuarioLogin] = useState<UsuarioLogin>({
         id: 0,
         nome: '',
@@ -20,20 +26,25 @@ function Login() {
         token: ''
     })
 
+    // atualiza os dados do estado acima, e ajuda a formar o JSON para a requisição
     function updateModel(event: ChangeEvent<HTMLInputElement>){
         setUsuarioLogin({
             ...usuarioLogin,
             [event.target.name]: event.target.value
         })
     }
-
+    
+    // Efeito que fica de olho no token, e quando chega algo diferente de vazio, navega o usuario pra home
     useEffect(()=>{
         if(token != ''){
+            dispatch(addToken(token))
             history('/home')
         }
     }, [token])
 
+    // função que envia o formulário para o backend
     async function onSubmit(event: ChangeEvent<HTMLFormElement>) {
+        // previne que o formulario atualize a pagina
         event.preventDefault();
         try{
             await login(`/usuarios/logar`, usuarioLogin, setToken)

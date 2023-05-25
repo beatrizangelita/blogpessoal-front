@@ -4,35 +4,50 @@ import {Card, CardActions, CardContent, Button, Typography } from '@material-ui/
 import {Box} from '@mui/material';
 import './ListaTemas.css';
 import { Tema } from '../../../models/Tema';
-import useLocalStorage from 'react-use-localstorage';
 import { busca } from '../../../service/Service';
+import { TokenState } from '../../../store/tokens/tokensReducer';
+import { useSelector } from 'react-redux';
+import { addToken } from '../../../store/tokens/action';
 
 function ListaTemas() {
 
-  const [temas, setTemas] = useState<Tema[]>([])
-  const [token, setToken] = useLocalStorage('token');
-  let navigate = useNavigate();
-
-  useEffect(()=>{
-    if(token == ''){
-      alert("Você precisa estar logado")
-      navigate("/login")
-    }
-  }, [token])
-
-
-  async function getTema(){
-    await busca("/temas", setTemas, {
-      headers: {
-        'Authorization': token
+    const [temas, setTemas] = useState<Tema[]>([])
+    const navigate = useNavigate();
+    
+    const token = useSelector<TokenState, TokenState["token"]>(
+      (state) => state.token
+    );
+    
+    async function getTemas() {
+      // alterado a função pra dentro de um try catch, para poder verificar a validade do token do usuário
+      try {
+        // a parte do TRY, fica igual ao que ja tinha antes
+        await busca('/temas', setTemas, {
+          headers: {
+            Authorization: token
+          }
+        })
+      } catch (error: any) {
+        // a parte do catch, vai receber qlquer mensagem de erro que chegue, e caso a mensagem tenha um 403 no seu texto
+        // significa que o token já expirou. Iremos alertar o usuário sobre isso, apagar o token do navegador, e levá-lo para a tela de login
+        if(error.toString().includes('403')) {
+          alert('O seu token expirou, logue novamente')
+          addToken('')
+          navigate('/login')
+        }
       }
-    })
-  }
-
-
-  useEffect(()=>{
-    getTema()
-  }, [temas.length])
+    }
+    
+    useEffect(() => {
+      getTemas()
+    }, [])
+  
+    useEffect(() => {
+      if(token === ''){ 
+        alert('Você precisa estar logado!')
+        navigate('/login')
+      }
+    }, [])
 
   return (
     <>

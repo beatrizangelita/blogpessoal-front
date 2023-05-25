@@ -5,12 +5,16 @@ import "./Home.css";
 import TabPostagens from "../../components/postagens/tabPostagens/TabPostagens";
 import ModalPostagem from "../../components/postagens/modalPostagens/ModalPostagens";
 import { useNavigate } from "react-router-dom";
-import useLocalStorage from "react-use-localstorage";
+import { useSelector } from "react-redux";
+import { TokenState } from "../../store/tokens/tokensReducer";
 
 function Home() {
 
-  let navigate = useNavigate();
-  const [token, setToken] = useLocalStorage('token');
+  const navigate = useNavigate();
+
+  const token = useSelector<TokenState, TokenState["token"]>(
+    (state) => state.token
+  );
   
   useEffect(() => {
     if (token == "") {

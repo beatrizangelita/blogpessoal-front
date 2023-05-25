@@ -6,6 +6,7 @@ import { Box } from "@mui/material";
 import "./footer.css";
 
 function Footer() {
+  
   return (
     <>
       <Grid
@@ -26,7 +27,7 @@ function Footer() {
                 variant="h6"
                 align="center"
                 gutterBottom
-                className="textos"
+                className="fonte"
               >
                 Siga-nos nas redes {" "}
 
@@ -51,7 +52,7 @@ function Footer() {
                 variant="subtitle2"
                 align="center"
                 gutterBottom
-                className="textos"
+                className="fonte"
               >
                 © 2023 Copyright: Beatriz Angelita
               </Typography>

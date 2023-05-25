@@ -1,17 +1,20 @@
-import { AppBar, Grid, Toolbar, Typography } from "@material-ui/core";
-import React from "react";
-import { Box } from "@mui/material";
-import { Link } from "react-router-dom";
+import { AppBar, Grid, Toolbar, Typography, Box } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
-import useLocalStorage from "react-use-localstorage";
-import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { TokenState } from "../../../store/tokens/tokensReducer";
+import { addToken } from "../../../store/tokens/action";
 
 function Navbar() {
-  const [token, setToken] = useLocalStorage("token");
-  let navigate = useNavigate();
+
+  const navigate = useNavigate();
+  
+  const token = useSelector<TokenState, TokenState["token"]>(
+    (state) => state.token
+  );
 
   function goLogout() {
-    setToken("");
+    addToken("");
     alert("Usuário deslogado");
     navigate("/login");
   }
@@ -19,8 +22,11 @@ function Navbar() {
   return (
     <>
     
-      <AppBar position="static">
+      <AppBar position="static" className="navbar">
+
         <Toolbar variant="dense">
+
+        <Grid container justifyContent={'space-between'} className='fonte'>
 
           <Box className="cursor">
             <Typography variant="h5" color="inherit">
@@ -69,6 +75,8 @@ function Navbar() {
             </Box>
             
           </Box>
+          
+          </Grid>
         </Toolbar>
       </AppBar>
 

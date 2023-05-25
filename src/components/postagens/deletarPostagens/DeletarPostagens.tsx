@@ -5,13 +5,19 @@ import './DeletarPostagens.css';
 import { Postagem } from '../../../models/Postagem';
 import { buscaId, deleteId } from '../../../service/Service';
 import { useNavigate, useParams } from 'react-router-dom';
-import useLocalStorage from 'react-use-localstorage';
+import { useSelector } from 'react-redux';
+import { TokenState } from '../../../store/tokens/tokensReducer';
 
 function DeletarPostagem() {
     
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+
   const { id } = useParams<{id: string}>();
-  const [token, setToken] = useLocalStorage('token');
+
+  const token = useSelector<TokenState, TokenState["token"]>(
+    (state) => state.token
+  );
+
   const [postagens, setPostagens] = useState<Postagem>()
 
   useEffect(() => {
@@ -22,19 +28,19 @@ function DeletarPostagem() {
       }
   }, [token])
 
-  useEffect(() =>{
-      if(id !== undefined){
-          findById(id)
-      }
-  }, [id])
+  async function getById(id: string) {
+    await buscaId(`/postagens/${id}`, setPostagens, {
+      headers: {
+        Authorization: token,
+      },
+    });
+  }
 
-  async function findById(id: string) {
-    buscaId(`/postagens/${id}`, setPostagens, {
-        headers: {
-          'Authorization': token
-        }
-      })
+  useEffect(() => {
+    if (id !== undefined) {
+      getById(id);
     }
+  }, []);
 
       function sim() {
         navigate('/postagens')
@@ -43,7 +49,7 @@ function DeletarPostagem() {
               'Authorization': token
             }
           });
-          alert('Postagem deletada com sucesso');
+          alert('Postagem deletada com sucesso!');
         }
       
         function nao() {

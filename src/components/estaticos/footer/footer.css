@@ -1,18 +1,17 @@
+/* Cor do fundo */
 .box1{
     background-color: #3F51B5;
     height: 50px;
 }
 
-.box2{
-    background-color: #3F51B5;
-    height: 60px;
-}
-
+/* Icones */
 .redes{
     font-size: 45px;
     color: white;
 }
 
-.textos{
+/* Fonte das letras */
+.fonte{
+    font-family: 'Times New Roman', Times, serif;
     color: white;
 }

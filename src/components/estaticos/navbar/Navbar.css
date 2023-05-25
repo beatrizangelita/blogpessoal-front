@@ -1,10 +1,23 @@
+/* Cor de Fundo */
+.navbar {
+    background-color: #3e5997 !important;
+  }
+
+/* Colocar a mãozinha quando passar por cima dos campos */
 .cursor{
     cursor: pointer;
     color: white;
 }
 
+/* Tirar o link em baixo dos campos */
 .text-decorator-none{
     text-decoration: none;
+    color: white;
+}
+
+/* Fonte das letras */
+.fonte{
+    font-family: 'Times New Roman', Times, serif;
     color: white;
 }
 
