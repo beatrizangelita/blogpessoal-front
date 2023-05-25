@@ -15,7 +15,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Tema } from "../../../models/Tema";
 import { Postagem } from "../../../models/Postagem";
 import { busca, buscaId, post, put } from "../../../service/Service";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { TokenState } from "../../../store/tokens/tokensReducer";
 import { addToken } from "../../../store/tokens/action";
 
@@ -27,6 +27,7 @@ function CadastroPostagens() {
   
   const [temas, setTemas] = useState<Tema[]>([]);
   
+  const dispatch = useDispatch();
   const token = useSelector<TokenState, TokenState["token"]>(
     (state) => state.token
   );
@@ -61,7 +62,7 @@ function CadastroPostagens() {
     } catch (error: any) {
       if (error.toString().contains('403')) {
         alert('Token expirado, logue novamente');
-        addToken('');
+        dispatch(addToken(''));
         navigate('/login');
       }
     }

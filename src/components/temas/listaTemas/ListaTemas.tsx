@@ -6,14 +6,16 @@ import './ListaTemas.css';
 import { Tema } from '../../../models/Tema';
 import { busca } from '../../../service/Service';
 import { TokenState } from '../../../store/tokens/tokensReducer';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToken } from '../../../store/tokens/action';
 
 function ListaTemas() {
 
     const [temas, setTemas] = useState<Tema[]>([])
+    
     const navigate = useNavigate();
     
+    const dispatch = useDispatch();
     const token = useSelector<TokenState, TokenState["token"]>(
       (state) => state.token
     );
@@ -32,7 +34,7 @@ function ListaTemas() {
         // significa que o token já expirou. Iremos alertar o usuário sobre isso, apagar o token do navegador, e levá-lo para a tela de login
         if(error.toString().includes('403')) {
           alert('O seu token expirou, logue novamente')
-          addToken('')
+          dispatch(addToken(''));
           navigate('/login')
         }
       }

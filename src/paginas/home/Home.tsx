@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 import "./Home.css";
 import TabPostagens from "../../components/postagens/tabPostagens/TabPostagens";
 import ModalPostagem from "../../components/postagens/modalPostagens/ModalPostagens";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { TokenState } from "../../store/tokens/tokensReducer";
 
@@ -28,23 +28,32 @@ function Home() {
     <>
               <Grid container direction="row" justifyContent="center" alignItems="center" className='caixa'>
                 <Grid alignItems="center" item xs={6}>
+                   
                     <Box paddingX={20} >
                         <Typography variant="h3" gutterBottom color="textPrimary" component="h3" align="center" className='titulo'>Seja bem vindo(a)!</Typography>
                         <Typography variant="h6" gutterBottom color="textPrimary" component="h6" align="center" className='titulo'>expresse aqui os seus pensamentos e opiniões!</Typography>
                     </Box>
+                    
                     <Box display="flex" justifyContent="center">
                         <Box marginRight={1}>
                           <ModalPostagem />
                         </Box>
-                        <Button variant="outlined" className='botao'>Ver Postagens</Button>
+                        
+                        <Link to="/postagens">
+                          <Button variant="outlined" className='botao'>Ver Postagens</Button>
+                        </Link>
+
                     </Box>
                 </Grid>
+                
                 <Grid item xs={6} >
                     <img src="/src/img/bart.png" alt="" width="500px" height="500px" />
                 </Grid>
+                
                 <Grid xs={12} className='postagens'>
                   <TabPostagens />
                 </Grid>
+           
             </Grid>
     </>
 

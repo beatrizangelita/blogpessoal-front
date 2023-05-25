@@ -8,6 +8,7 @@ import CadastroPostagens from '../cadastroPostagens/CadastroPostagens';
 
 
 function getModalStyle() {
+
   const top = 50 ;
   const left = 50;
 
