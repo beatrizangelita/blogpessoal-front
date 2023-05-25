@@ -47,6 +47,8 @@ function ListaPostagem() {
          
          <Grid item xs={3} border={1} borderRadius={2} borderColor={'lightgray'} p={2}>
            
+           <Typography>Usuário: {post.usuario?.nome}</Typography>
+
             <Typography>Título: {post.titulo}</Typography>
            
             <Typography>Texto: {post.texto}</Typography>

@@ -7,5 +7,7 @@ export interface Postagem{
   texto: string
   data: string
   tema?: Tema | null
-  usuario?: Usuario | null
+  usuario?: Usuario | null //linha adicionada para vincular um usuário
 }
+
+export default Postagem;

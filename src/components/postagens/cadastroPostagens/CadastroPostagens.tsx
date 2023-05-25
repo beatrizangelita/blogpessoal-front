@@ -18,6 +18,7 @@ import { busca, buscaId, post, put } from "../../../service/Service";
 import { useDispatch, useSelector } from "react-redux";
 import { TokenState } from "../../../store/tokens/tokensReducer";
 import { addToken } from "../../../store/tokens/action";
+import Usuario from "../../../models/Usuario";
 
 function CadastroPostagens() {
   
@@ -43,7 +44,22 @@ function CadastroPostagens() {
     texto: "",
     data: "",
     tema: null,
+    usuario: null //linha adicionada para inserir o usuário dono da postagem
   });
+
+  //Busca o ID dentro do redux
+  const userId = useSelector<TokenState, TokenState['id']>(
+    (state) => state.id
+  )
+
+  //State que vai controlar o usuário que será inserido na postagem
+  const [usuario, setUsuario] = useState<Usuario>({
+    id: +userId,
+    nome: '',
+    usuario: '',
+    senha: '',
+    foto: ''
+  })
 
   useEffect(() => {
     if (token == "") {
@@ -95,6 +111,7 @@ function CadastroPostagens() {
     setPostagem({
       ...postagem,
       tema: tema,
+      usuario: usuario //adicionar o usuário dentro da postagem que está sendo enviada para o backend
     });
   }, [tema]);
 

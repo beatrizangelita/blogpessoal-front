@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { login } from '../../service/Service'
 import { UsuarioLogin } from '../../models/UsuarioLogin'
 import { useDispatch } from 'react-redux'
-import { addToken } from '../../store/tokens/action'
+import { addId, addToken } from '../../store/tokens/action'
 
 function Login() {
 
@@ -18,6 +18,16 @@ function Login() {
 
     // cria um estado de controle para o usuário preencher os dados de login
     const [usuarioLogin, setUsuarioLogin] = useState<UsuarioLogin>({
+        id: 0,
+        nome: '',
+        usuario: '',
+        senha: '',
+        foto: '',
+        token: ''
+    })
+
+    // State novo para receber o JSON de conexão do backend
+    const [respUsuarioLogin, setRespUsuarioLogin] = useState<UsuarioLogin>({
         id: 0,
         nome: '',
         usuario: '',
@@ -47,7 +57,7 @@ function Login() {
         // previne que o formulario atualize a pagina
         event.preventDefault();
         try{
-            await login(`/usuarios/logar`, usuarioLogin, setToken)
+            await login(`/usuarios/logar`, usuarioLogin, setRespUsuarioLogin)
 
             alert('Usuário logado com sucesso!');
         }catch(error)
@@ -55,6 +65,15 @@ function Login() {
             alert('Dados do usuário inconsistentes. Erro ao logar!');
         }
     }
+
+    //metodo para pegar o token e o id do json e guardar no redux
+    useEffect(() => {
+        if(respUsuarioLogin.token !== ''){
+            dispatch(addToken(respUsuarioLogin.token))
+            dispatch(addId(respUsuarioLogin.id.toString()))
+            history('/home')
+        }
+    }, [respUsuarioLogin.token])
 
   return (
     <>

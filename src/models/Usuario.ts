@@ -1,3 +1,4 @@
+import Postagem from "./Postagem";
 
 export interface Usuario{
     id: number;
@@ -5,6 +6,7 @@ export interface Usuario{
     usuario: string;
     foto: string;
     senha: string;
+    postagem?: Postagem[];
 }
 
 export default Usuario;
