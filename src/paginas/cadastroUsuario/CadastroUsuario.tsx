@@ -123,6 +123,8 @@ function CadastroUsuario() {
               }
               id="usuario"
               label="Usuário"
+              type="email"
+              required
               variant="outlined"
               name="usuario"
               margin="normal"

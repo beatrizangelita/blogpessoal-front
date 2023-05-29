@@ -8,6 +8,7 @@ import { busca } from '../../../service/Service';
 import { TokenState } from '../../../store/tokens/tokensReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToken } from '../../../store/tokens/action';
+import { toast } from 'react-toastify';
 
 function ListaTemas() {
 
@@ -33,7 +34,17 @@ function ListaTemas() {
         // a parte do catch, vai receber qlquer mensagem de erro que chegue, e caso a mensagem tenha um 403 no seu texto
         // significa que o token já expirou. Iremos alertar o usuário sobre isso, apagar o token do navegador, e levá-lo para a tela de login
         if(error.toString().includes('403')) {
-          alert('O seu token expirou, logue novamente')
+
+          toast.error('O seu token expirou, logue novamente', {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false,
+            theme: "dark",
+            progress: undefined,
+          });  
           dispatch(addToken(''));
           navigate('/login')
         }
@@ -46,7 +57,17 @@ function ListaTemas() {
   
     useEffect(() => {
       if(token === ''){ 
-        alert('Você precisa estar logado!')
+  
+        toast.error('Você precisa estar logado!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          theme: "dark",
+          progress: undefined,
+        });  
         navigate('/login')
       }
     }, [])

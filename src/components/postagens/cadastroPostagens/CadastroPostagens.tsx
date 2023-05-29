@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { TokenState } from "../../../store/tokens/tokensReducer";
 import { addToken } from "../../../store/tokens/action";
 import Usuario from "../../../models/Usuario";
+import { toast } from "react-toastify";
 
 function CadastroPostagens() {
   
@@ -63,7 +64,16 @@ function CadastroPostagens() {
 
   useEffect(() => {
     if (token == "") {
-      alert("Você precisa estar logado");
+      toast.error('Você precisa estar logado', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        theme: "dark",
+        progress: undefined,
+      });   
       navigate("/login");
     }
   }, [token]);
@@ -77,7 +87,16 @@ function CadastroPostagens() {
       });
     } catch (error: any) {
       if (error.toString().contains('403')) {
-        alert('Token expirado, logue novamente');
+        toast.error('Token expirado, logue novamente', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          theme: "dark",
+          progress: undefined,
+        });  
         dispatch(addToken(''));
         navigate('/login');
       }
@@ -125,10 +144,31 @@ function CadastroPostagens() {
             Authorization: token,
           },
         });
-        alert('Postagem, atualizada com sucesso!')
+
+        toast.success('Postagem, atualizada com sucesso!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          theme: "dark",
+          progress: undefined,
+        });  
+        
         navigate('/postagens')
       } catch (error) {
-        alert('Não foi possível atualizar!');
+
+        toast.error('Não foi possível atualizar!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          theme: "dark",
+          progress: undefined,
+        });  
       }
     } else {
       try {
@@ -137,10 +177,31 @@ function CadastroPostagens() {
             Authorization: token,
           },
         });
-        alert('Postagem, cadastrada com sucesso!')
+
+        toast.success('Postagem, cadastrada com sucesso!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          theme: "dark",
+          progress: undefined,
+        }); 
+
         navigate('/postagens')
       } catch (error) {
-        alert('Não foi possível cadastrar a postagem!');
+
+        toast.error('Não foi possível cadastrar a postagem!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          theme: "dark",
+          progress: undefined,
+        }); 
       }
     }
   }
@@ -151,6 +212,7 @@ function CadastroPostagens() {
 
   return (
     <Container maxWidth="sm" className="topo">
+      
       <form onSubmit={onSubmit}>
         
         <Typography variant="h3" color="textSecondary" component="h1" align="center" >

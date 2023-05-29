@@ -6,6 +6,7 @@ import { buscaId, post, put } from "../../../service/Service";
 import { Tema } from "../../../models/Tema";
 import { useSelector } from "react-redux";
 import { TokenState } from "../../../store/tokens/tokensReducer";
+import { toast } from "react-toastify";
 
 function CadastroTema() {
   
@@ -32,7 +33,18 @@ function CadastroTema() {
         },
       });
     } catch (error) {
-      alert("O tema não existe");
+
+      toast.error('O tema não existe', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        theme: "dark",
+        progress: undefined,
+      });  
+      
     }
   }
 
@@ -44,7 +56,18 @@ function CadastroTema() {
 
   useEffect(() => {
     if (token === "") {
-      alert("Você precisa estar logado");
+
+      toast.error('Você precisa estar logado', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        theme: "dark",
+        progress: undefined,
+      });   
+
       navigate("/login");
     }
   }, []);
@@ -67,10 +90,30 @@ function CadastroTema() {
             Authorization: token,
           },
         });
-        alert("Tema atualizado com sucesso!");
+
+        toast.success('Tema atualizado com sucesso!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          theme: "dark",
+          progress: undefined,
+        });   
         back();
       } catch (error) {
-        alert("Não foi possível atualizadar o Tema!");
+
+        toast.error('Não foi possível atualizadar o Tema!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          theme: "dark",
+          progress: undefined,
+        });   
       }
     } else {
       try {
@@ -79,10 +122,31 @@ function CadastroTema() {
             Authorization: token,
           },
         });
-        alert("Tema cadastrado com Sucesso!");
+
+        toast.success('Tema cadastrado com Sucesso!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          theme: "dark",
+          progress: undefined,
+        });   
+
         back();
       } catch (error) {
-        alert("Não foi possível cadastrar o Tema!");
+
+        toast.error('Não foi possível cadastrar o Tema!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          theme: "dark",
+          progress: undefined,
+        });   
       }
     }
   }

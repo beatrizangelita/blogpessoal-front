@@ -8,6 +8,7 @@ import './ListaPostagens.css';
 import {useNavigate, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import { TokenState } from '../../../store/tokens/tokensReducer';
+import { toast } from 'react-toastify';
 
 function ListaPostagem() {
   
@@ -32,7 +33,16 @@ function ListaPostagem() {
 
   useEffect(() => {
     if(token === ''){ 
-      alert('O seu token expirou, logue novamente')
+      toast.info('Usuário deslogado', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        theme: "dark",
+        progress: undefined,
+      });   
       navigate('/login')
     }
   }, [])
